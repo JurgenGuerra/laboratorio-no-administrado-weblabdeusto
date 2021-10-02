@@ -1,0 +1,31 @@
+
+          electronics:
+            class: experiments.http_experiment.HttpExperiment
+            config:
+              http_experiment_url: http://server.myinstitution.edu/experiment1/
+              http_experiment_username: weblab
+              http_experiment_password: bdca31bd-b5d4-4f2f-995a-e6cd9d0a1b2d
+            type: experimenthosts:
+  core_host:
+    runner: run.py
+    config_file: core_host_config.py
+    processes:
+      core_process1:
+        components:
+          core:
+            config:
+              core_facade_port: 10000
+              core_facade_server_route: route1
+            type: core
+      laboratory1:
+        components:
+          experiment1:
+            class: experiments.dummy.DummyExperiment
+            config:
+              dummy_verbose: true
+            type: experiment
+          laboratory1:
+            config_file: lab1_config.py
+            protocols:
+              port: 10001
+            type: laboratory
